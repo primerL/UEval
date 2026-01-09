@@ -22,8 +22,6 @@ class="center">
 
 </p>
 
-![image](https://github.com/user-attachments/assets/ac33d27a-a1c1-4e71-bfe7-f20af55b67c6)
-
 We introduce UEval, a benchmark to evaluate unified models, i.e., models capable of generating
 both images and text. UEval comprises 1,000 expert-curated prompts that require both images
 and text in the model outputs, sourced from 8 diverse real-world domains. 
