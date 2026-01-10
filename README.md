@@ -87,7 +87,6 @@ python eval_cache_v2.py \
   --limit 100 \
   --no_cache
 ```
-```
 
 **Key Arguments:**
 - `--model_output_path`: Path to your model's output JSON file (required)
