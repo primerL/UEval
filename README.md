@@ -133,9 +133,10 @@ Evaluation results are saved in JSON format:
 We evaluate recent unified models on all 8 tasks in our benchmark. Overall, frontier models consistently outperform open-source ones across all tasks: GPT-5-Thinking achieves the highest average score of 66.4, while the best open-source model obtains only 49.1. The gap between proprietary and open-source models is very large: the strongest frontier model (e.g., GPT-5-Thinking) outperforms the best open-source model (e.g., Emu 3.5) by over 17 points on average.
 
 <img src="https://github.com/user-attachments/assets/bcc42fae-8a16-439c-9d88-c8018423981f" width="600" />
-<img width="1368" height="1417" alt="Image" src="https://github.com/user-attachments/assets/ede55cbf-fffd-4278-8fed-34d8c95596a8" />
 
-<img width="1398" height="1542" alt="Image" src="https://github.com/user-attachments/assets/add410df-b267-4693-8a3d-b9c8e45108fb" />
+<img width="800" alt="Image" src="https://github.com/user-attachments/assets/add410df-b267-4693-8a3d-b9c8e45108fb" />
+
+<img width="800" alt="Image" src="https://github.com/user-attachments/assets/ede55cbf-fffd-4278-8fed-34d8c95596a8" />
 
 ## Questions
 
