@@ -19,7 +19,7 @@ Official code of UEval: A Benchmark for Unified Multimodal Generation
 ---
 
 <p align="center">
-<img src="https://github.com/user-attachments/assets/ac33d27a-a1c1-4e71-bfe7-f20af55b67c6" width=100% height=100%
+<img src="https://github.com/user-attachments/assets/f66379a8-c571-4cba-8e9b-78d158ecd26c" width=100% height=100%
 class="center">
 </p>
 
@@ -100,17 +100,6 @@ python eval_cache_v2.py \
 - `--checkpoint_interval`: Save checkpoint every N items (default: 1)
 - `--no_cache`: Disable caching for single-image outputs (optional)
 
-### Evaluation Strategy
-
-UEval uses a rubric-based evaluation approach:
-
-1. **Rubric Generation**: For each question, rubrics are automatically generated using Gemini API
-
-
-3. **Scoring**: Each rubric criterion is evaluated as met/not met, with final scores computed as:
-   - Text score = (text criteria met) / (total text criteria)
-   - Image score = (image criteria met) / (total image criteria)
-   - Overall score = (text score + image score) / 2
 
 ### Output Format
 
@@ -142,11 +131,9 @@ Evaluation results are saved in JSON format:
 
 ## Results
 
-*Coming soon: Benchmark results for various unified multimodal models*
+We evaluate recent unified models on all 8 tasks in our benchmark. Overall, frontier models consistently outperform open-source ones across all tasks: GPT-5-Thinking achieves the highest average score of 66.4, while the best open-source model obtains only 49.1. The gap between proprietary and open-source models is very large: the strongest frontier model (e.g., GPT-5-Thinking) outperforms the best open-source model (e.g., Emu 3.5) by over 17 points on average.
 
-## License
-
-This project is released under the MIT license. Please see the [LICENSE](LICENSE) file for more information.
+<img src="https://github.com/user-attachments/assets/bcc42fae-8a16-439c-9d88-c8018423981f" width="600" />
 
 ## Questions
 
