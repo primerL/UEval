@@ -5,7 +5,7 @@ Official code of UEval: A Benchmark for Unified Multimodal Generation
 > [**UEval: A Benchmark for Unified Multimodal Generation**](https://arxiv.org/abs/2502.12150) </br>
 > *[Bo Li](https://primerl.github.io/), [Yida Yin](https://davidyyd.github.io), [Wenhao Chai](https://wenhaochai.com/), [Xingyu Fu](https://zeyofu.github.io/)\*, [Zhuang Liu](https://liuzhuang13.github.io)\* (* indicates co-advising) <br>
 > Princeton University<br>
-> [[Paper]](https://arxiv.org/abs/2502.12150) [[Project page]](https://wenhaochai.com/ueval/) [[Dataset]](https://huggingface.co/datasets/primerL/UEval)
+> [[Paper]](https://arxiv.org/abs/2502.12150) [[Project page]](https://ueval.vercel.app/) [[Dataset]](https://huggingface.co/datasets/zlab-princeton/UEval)
 
 ---
 
@@ -21,7 +21,7 @@ We introduce **UEval**, a benchmark to evaluate unified models, i.e., models cap
 
 ### Using Gemini API
 
-We provide `inf/gemini.py` for generating multimodal outputs (both text and images) using Google's Gemini API.
+We provide `generate_outputs/gemini.py` for generating multimodal outputs (both text and images) using Google's Gemini API.
 
 #### Prerequisites
 
@@ -39,7 +39,7 @@ export GEMINI_API_KEY="your-api-key-here"
 
 Basic usage:
 ```bash
-python inf/gemini.py \
+python generate_outputs/gemini.py \
   --output_path results/gemini_outputs.json \
   --output_image_dir results/images/ \
   --api_key YOUR_API_KEY
@@ -49,19 +49,19 @@ python inf/gemini.py \
 
 ```bash
 # Generate for specific domains
-python inf/gemini.py \
+python generate_outputs/gemini.py \
   --output_path results/gemini_outputs.json \
   --output_image_dir results/images/ \
   --domains art life tech
 
 # Limit number of items for testing
-python inf/gemini.py \
+python generate_outputs/gemini.py \
   --output_path results/test.json \
   --output_image_dir results/images/ \
   --limit 10
 
 # Use specific Gemini model
-python inf/gemini.py \
+python generate_outputs/gemini.py \
   --output_path results/gemini_outputs.json \
   --output_image_dir results/images/ \
   --model gemini-2.5-flash-image
@@ -91,6 +91,67 @@ Generated outputs are saved in JSON format compatible with the evaluation script
     "question_type": "open",
     "gemini_image_ans": ["results/images/1_1.png"],
     "gemini_text_ans": "Generated text response..."
+  },
+  ...
+]
+```
+
+### Using Emu3.5
+
+We adapted [Emu3.5's official implementation](https://github.com/baaivision/Emu3) to work with the UEval benchmark by adding two adapter files: `ueval_inference_vllm.py` and `vis_proto_ueval.py`.
+
+#### Prerequisites
+
+1. Follow the [official Emu3.5 setup instructions](https://github.com/baaivision/Emu3) to configure the environment and download model weights.
+
+2. Ensure you have the required dependencies installed as specified in the Emu3.5 repository.
+
+#### Generate Outputs
+
+**Step 1: Run inference to generate protobuf outputs**
+
+```bash
+cd generate_outputs/Emu3.5
+python ueval_inference_vllm.py \
+  --cfg configs/example_config_visual_guidance.py \
+  --dataset-name primerL/UEval-all \
+```
+
+This will generate protobuf (`.pb`) files containing the raw model outputs.
+
+**Step 2: Visualize and convert protobuf outputs to evaluation format**
+
+```bash
+python src/utils/vis_proto_ueval.py \
+  --proto-dir outputs/proto \
+  --image-dir images \
+  --output-json emu3.5_results.json 
+```
+
+This converts the protobuf files into JSON format compatible with the UEval evaluation script.
+
+**Key Arguments for inference:**
+- `--cfg`: Path to Emu3.5 configuration file (required)
+- `--dataset-name`: HuggingFace dataset ID (default: `primerL/UEval-all`)
+- `--dataset-split`: Specific split to process (e.g., `art`, `life`, etc.)
+- `--tensor-parallel-size`: Number of GPUs for tensor parallelism (default: 4)
+- `--gpu-memory-utilization`: GPU memory utilization ratio (default: 0.7)
+
+**Key Arguments for visualization:**
+- `--proto-dir`: Directory containing `.pb` files (required)
+- `--image-dir`: Directory to save extracted images (required)
+- `--output-json`: Path to save output JSON file (required)
+- `--relative-root`: Base directory for computing relative image paths (default: `.`)
+
+#### Output Format
+
+The final JSON output will have the following format:
+```json
+[
+  {
+    "id": "1",
+    "emu_image": ["clip_00_00.png", ...],
+    "emu_text": "Generated text response with chain-of-thought..."
   },
   ...
 ]
