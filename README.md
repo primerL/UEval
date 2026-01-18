@@ -98,11 +98,11 @@ Generated outputs are saved in JSON format compatible with the evaluation script
 
 ### Using Emu3.5
 
-We adapted [Emu3.5's official implementation](https://github.com/baaivision/Emu3) to work with the UEval benchmark by adding two adapter files: `ueval_inference_vllm.py` and `vis_proto_ueval.py`.
+We adapted [Emu3.5's official implementation](https://github.com/baaivision/Emu3.5) to work with the UEval benchmark by adding two adapter files: `ueval_inference_vllm.py` and `vis_proto_ueval.py`.
 
 #### Prerequisites
 
-1. Follow the [official Emu3.5 setup instructions](https://github.com/baaivision/Emu3) to configure the environment and download model weights.
+1. Follow the [official Emu3.5 setup instructions](https://github.com/baaivision/Emu3.5) to configure the environment and download model weights.
 
 2. Ensure you have the required dependencies installed as specified in the Emu3.5 repository.
 
